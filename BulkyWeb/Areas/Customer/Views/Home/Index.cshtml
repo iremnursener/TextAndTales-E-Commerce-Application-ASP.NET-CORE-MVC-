@@ -25,7 +25,7 @@
 
                             <div class="pl-1">
                                 <p class=" text-dark opacity-75  text-center mb-0">List Price:<span class="text-decoration-line-through">@product.ListPrice.ToString("c")</span> </p>
-                                
+
 
                             </div>
 
@@ -39,10 +39,13 @@
                         </div>
 
                         <div>
-                           <a href="#"class="btn btn-primary bg-gradient border-0 form-control"    >
+                            <a asp-action="Details"
+                            
+                            asp-route-productId="@product.Id"
+                            class="btn btn-primary bg-gradient border-0 form-control">
 
-                               Details
-                           </a>
+                                Details
+                            </a>
 
 
                         </div>
