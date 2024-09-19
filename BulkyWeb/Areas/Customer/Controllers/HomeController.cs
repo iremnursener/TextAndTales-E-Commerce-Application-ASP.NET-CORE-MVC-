@@ -62,7 +62,7 @@ namespace BulkyWeb.Areas.Customer.Controllers
                 _unitOfWork.ShoppingCard.Add(shoppingCard);
             }
 
-           
+            TempData["success"] = "Card updated succesfully";
             _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
