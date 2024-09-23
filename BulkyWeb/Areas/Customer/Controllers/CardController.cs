@@ -259,10 +259,11 @@ namespace BulkyWeb.Areas.Customer.Controllers
         public IActionResult Minus(int cardId)
         {
 
-            var cardFromDb = _unitOfWork.ShoppingCard.Get(u => u.Id == cardId);
+            var cardFromDb = _unitOfWork.ShoppingCard.Get(u => u.Id == cardId, tracked: true);
             if (cardFromDb.Count <= 1)
             {
                 //remove that from card
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCard.GetAll(u => u.ApplicationUserId == cardFromDb.ApplicationUserId).Count() - 1);
                 _unitOfWork.ShoppingCard.Remove(cardFromDb);
 
             }
@@ -283,12 +284,11 @@ namespace BulkyWeb.Areas.Customer.Controllers
         public IActionResult Remove(int cardId)
         {
 
-            var cardFromDb = _unitOfWork.ShoppingCard.Get(u => u.Id == cardId);
-
+            var cardFromDb = _unitOfWork.ShoppingCard.Get(u => u.Id == cardId,tracked:true);
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCard.GetAll(u => u.ApplicationUserId == cardFromDb.ApplicationUserId).Count() - 1);
             _unitOfWork.ShoppingCard.Remove(cardFromDb);
 
             _unitOfWork.Save();
-
             return RedirectToAction(nameof(Index));
 
         }
